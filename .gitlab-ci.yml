@@ -1,0 +1,22 @@
+stages:
+  - lint
+
+lint:shellcheck:
+  image: koalaman/shellcheck-alpine:stable
+  stage: lint
+  script: shellcheck mariadb-backup.sh
+  only:
+    changes:
+      - '*.sh'
+
+pages:
+  image: python:latest
+  script:
+    - pip install mkdocs
+    - pip install mkdocs-cinder
+    - mkdocs build -d public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
