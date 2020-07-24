@@ -30,7 +30,7 @@ function main() {
     has sed
 
     echo "MariaDB backup starting"
-    [ -d "${BACKUP_LOCATION}" ] || error "Backup location does not exist"
+    [ -d "${BACKUP_LOCATION}" ] || script_error "Backup location does not exist"
 
     list_databases | while read -r database; do
         # Skip system databases
@@ -49,7 +49,7 @@ function main() {
 # Print string to stderr in red.
 # Args: $1 (required): String to print.
 function error() {
-    echo "$*" >&2
+    echo "[ERROR]: $*" >&2
 }
 
 # Print list of databases
@@ -76,7 +76,7 @@ function script_error() {
 
 # Print usage to stdout.
 function usage() {
-    sed -rn 's/^### ?//;T;p' "$0"
+    sed -Ene 's/^### ?//;T;p' "$0"
 }
 
 # Run the script
