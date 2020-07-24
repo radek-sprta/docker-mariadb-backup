@@ -1,5 +1,6 @@
 stages:
   - lint
+  - docs
 
 lint:shellcheck:
   image: koalaman/shellcheck-alpine:stable
@@ -11,6 +12,7 @@ lint:shellcheck:
 
 pages:
   image: python:latest
+  stage: docs
   script:
     - pip install mkdocs
     - pip install mkdocs-cinder
