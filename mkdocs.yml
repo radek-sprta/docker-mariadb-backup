@@ -1,4 +1,4 @@
-site_name: docker-mariadb-backup - Docker container to dump MariaDB databases
+site_name: rsprta/mariadb-backup
 site_url: "https://radek-sprta.gitlab.io/docker-mariadb-backup"
 site_author: Radek Sprta
 theme: cinder
