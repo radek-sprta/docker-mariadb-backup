@@ -50,13 +50,13 @@ Password of the backup user.
 Port to connect to.
 
 ### MARIADB_USER
-User to perform the backup. Needs to have the necessary permissions. 
+User to perform the backup. Needs to have the necessary permissions.
 
 ## Contributing
 For information on how to contribute to the project, please check the [Contributor's Guide][contributing].
 
 ## Contact
-[mail@radeksprta.eu](mailto:mail@radeksprta.eu)  
+[mail@radeksprta.eu](mailto:mail@radeksprta.eu)
 [incoming+radek-sprta/docker-mariadb-backup@gitlab.com](incoming+radek-sprta/docker-mariadb-backup@gitlab.com)
 
 ## License
