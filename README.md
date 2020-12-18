@@ -1,4 +1,4 @@
-# mariadb-backup
+# mariadb-backup [![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/rsprta/mariadb-backup)](https://hub.docker.com/r/rsprta/mariadb-backup) [![Docker Pulls](https://img.shields.io/docker/pulls/rsprta/mariadb-backup)](https://hub.docker.com/r/rsprta/mariadb-backup) [![Pipeline status](https://gitlab.com/radek-sprta/docker-mariadb-backup/badges/master/pipeline.svg)](https://gitlab.com/radek-sprta/docker-mariadb-backup/commits/master)
 
 ## Quick reference
 -	**Maintained by**: [Radek Sprta](https://gitlab.com/radek-sprta)
