@@ -2,7 +2,7 @@ site_name: rsprta/mariadb-backup
 site_url: "https://radek-sprta.gitlab.io/docker-mariadb-backup"
 site_author: Radek Sprta
 theme: cinder
-pages:
+nav:
   - Home: index.md
   - Contributing: contributing.md
   - Changelog: changelog.md
