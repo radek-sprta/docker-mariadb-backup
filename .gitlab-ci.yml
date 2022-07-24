@@ -1,8 +1,31 @@
 stages:
   - lint
-  - docs
+  - build
+  - test
+  - deploy
 
+services:
+  - name: docker:dind
+    command: ["--experimental"]
+
+before_script:
+  - apk --no-cache add git just
+
+image: docker:git
+
+.matrix:
+  parallel:
+    matrix:
+      - PLATFORM:
+          - "linux/amd64"
+          - "linux/arm64"
+          - "linux/arm/v7"
+          - "linux/arm/v6"
+        VERSION:
+          - "latest"
+            
 lint:shellcheck:
+  before_script: []
   image: koalaman/shellcheck-alpine:stable
   stage: lint
   script: shellcheck mariadb-backup.sh
@@ -10,15 +33,42 @@ lint:shellcheck:
     changes:
       - '*.sh'
 
-pages:
-  image: python:latest
-  stage: docs
-  script:
-    - pip install mkdocs
-    - pip install mkdocs-cinder
-    - mkdocs build -d public/
+build:
   artifacts:
     paths:
-      - public
+      - .cache
+    expire_in: 1 hour
+  extends:
+    - .matrix
+  stage: build
+  script:
+    - just build "${VERSION}" "${PLATFORM}"
+    - just run
+    - docker stop mariadb-backup
+    # Upload internally for testing
+    - >
+      just
+      USER="${CI_REGISTRY_USER}"
+      PASSWORD="${CI_REGISTRY_PASSWORD}"
+      REGISTRY="${CI_REGISTRY}"
+      REPOSITORY="${CI_REGISTRY_IMAGE}"
+      upload "${VERSION}" "${PLATFORM}"
+
+scan:
+  dependencies: []
+  image:
+    name: aquasec/trivy
+    entrypoint: [""]
+  stage: test
+  script:
+    - just scan "${CI_REGISTRY_IMAGE}"
+
+deploy:
+  extends:
+    - .matrix
   only:
     - master
+  retry: 1
+  stage: deploy
+  script:
+    - just upload "${VERSION}" "${PLATFORM}"
