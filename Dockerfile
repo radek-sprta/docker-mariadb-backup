@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.4
 FROM alpine:3
 
-ARG MARIADB_VERSION=10.6
+ARG MARIADB_VERSION=10.11
 
 LABEL maintainer="Radek Sprta <mail@radeksprta.eu>"
 LABEL org.opencontainers.image.authors="Radek Sprta <mail@radeksprta.eu>"
@@ -13,7 +13,7 @@ LABEL org.opencontainers.image.title="rsprta/mariadb-backup"
 LABEL org.opencontainers.image.url="https://gitlab.com/radek-sprta/docker-mariadb-backup"
 
 # Install cron
-RUN apk add --update "mariadb-client>${MARIADB_VERSION}" bash && \
+RUN apk add --update --upgrade "mariadb-client>${MARIADB_VERSION}" bash && \
     rm -rf /var/cache/apk/* && \
     mkdir /backup
 
